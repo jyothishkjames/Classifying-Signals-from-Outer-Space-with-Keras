@@ -1,4 +1,5 @@
 import pandas as pd
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
 def load_images():
@@ -24,4 +25,12 @@ def plot_spectrogram():
         plt.yticks([])
         plt.imshow(img)
 
-    plt.imshow(np.squeeze(x_train[3]), cmap="gray");
+    plt.imshow(np.squeeze(x_train[3]), cmap="gray")
+
+
+def create_data_generators():
+    datagen_train = ImageDataGenerator(horizontal_flip=True)
+    datagen_train.fit(x_train)
+
+    datagen_val = ImageDataGenerator(horizontal_flip=True)
+    datagen_val.fit(x_val)
