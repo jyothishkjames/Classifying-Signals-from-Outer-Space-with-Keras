@@ -35,3 +35,17 @@ def sequential_model():
     model.add(Dropout(0.4))
 
     model.add(Dense(4, activation='softmax'))
+
+
+def model_compile(model):
+    initial_learning_rate = 0.005
+    lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+        initial_learning_rate,
+        decay_steps=5,
+        decay_rate=0.96,
+        staircase=True)
+
+    optimizer = Adam(learning_rate=lr_schedule)
+
+    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.summary()
