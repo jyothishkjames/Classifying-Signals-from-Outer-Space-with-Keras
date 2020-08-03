@@ -49,3 +49,18 @@ def model_compile(model):
 
     model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
     model.summary()
+
+
+def model_train(model):
+    checkpoint = ModelCheckpoint("model_weights.h5", monitor='val_loss',
+                                 save_weights_only=True, mode='min', verbose=0)
+    callbacks = [PlotLossesCallback(), checkpoint]  # , reduce_lr]
+    batch_size = 32
+    history = model.fit(
+        datagen_train.flow(x_train, y_train, batch_size=batch_size, shuffle=True),
+        steps_per_epoch=len(x_train) // batch_size,
+        validation_data=datagen_val.flow(x_val, y_val, batch_size=batch_size, shuffle=True),
+        validation_steps=len(x_val) // batch_size,
+        epochs=12,
+        callbacks=callbacks
+    )
