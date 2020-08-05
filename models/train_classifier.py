@@ -36,6 +36,8 @@ def sequential_model():
 
     model.add(Dense(4, activation='softmax'))
 
+    return model
+
 
 def model_compile(model):
     initial_learning_rate = 0.005
@@ -64,3 +66,15 @@ def model_train(model):
         epochs=12,
         callbacks=callbacks
     )
+
+
+def main():
+
+    model = sequential_model()
+
+    model_compile(model)
+
+    model_train(model)
+
+if __name__ == '__main__':
+    main()
