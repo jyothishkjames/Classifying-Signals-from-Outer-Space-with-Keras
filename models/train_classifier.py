@@ -1,10 +1,14 @@
+import sys
+import tensorflow as tf
 from tensorflow.keras.layers import Dense, Input, Dropout, Flatten, Conv2D
 from tensorflow.keras.layers import BatchNormalization, Activation, MaxPooling2D
-
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.optimizers import Adam, SGD
 from tensorflow.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
-from tensorflow.keras.utils import plot_model
+from livelossplot.tf_keras import PlotLossesCallback
+
+sys.path.append('../')
+from data import *
 
 
 def sequential_model():
@@ -52,8 +56,10 @@ def model_compile(model):
     model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
     model.summary()
 
+    return model
 
-def model_train(model):
+
+def model_train(model, datagen_train, datagen_val, x_train, y_train, x_val, y_val):
     checkpoint = ModelCheckpoint("model_weights.h5", monitor='val_loss',
                                  save_weights_only=True, mode='min', verbose=0)
     callbacks = [PlotLossesCallback(), checkpoint]  # , reduce_lr]
@@ -69,12 +75,24 @@ def model_train(model):
 
 
 def main():
+    print("Loading pickle files...")
+
+    x_train, x_val, y_train, y_val = load_images()
+
+    print("Creating data generators...")
+
+    datagen_train, datagen_val = create_data_generators(x_train, x_val)
 
     model = sequential_model()
 
-    model_compile(model)
+    print("Compiling model...")
 
-    model_train(model)
+    model = model_compile(model)
+
+    print("Training model...")
+
+    model_train(model, datagen_train, datagen_val, x_train, y_train, x_val, y_val)
+
 
 if __name__ == '__main__':
     main()
