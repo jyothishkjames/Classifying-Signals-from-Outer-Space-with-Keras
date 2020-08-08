@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
+import pickle
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
@@ -19,6 +19,11 @@ def load_images():
     y_val = val_labels.values
 
     return x_train, x_val, y_train, y_val
+
+
+def save_pkl_files(x_train, x_val, y_train, y_val):
+    with open('data.pkl', 'w') as f:
+        pickle.dump([x_train, x_val, y_train, y_val], f)
 
 
 def plot_spectrogram(x_train, ):
@@ -47,9 +52,11 @@ def main():
 
     print("Loading data...")
 
-    load_images()
+    x_train, x_val, y_train, y_val = load_images()
 
     print("Saving data as pickle file...")
+
+    save_pkl_files(x_train, x_val, y_train, y_val)
 
 
 if __name__ == '__main__':
