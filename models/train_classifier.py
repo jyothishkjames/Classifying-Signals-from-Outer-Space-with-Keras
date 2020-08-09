@@ -11,6 +11,13 @@ sys.path.append('../')
 from data import *
 
 
+def load_pkl_files():
+    with open('../data/data.pkl') as f:
+        x_train, x_val, y_train, y_val = pickle.load(f)
+
+    return x_train, x_val, y_train, y_val
+
+
 def sequential_model():
     # Initialising the CNN
     model = Sequential()
@@ -77,7 +84,7 @@ def model_train(model, datagen_train, datagen_val, x_train, y_train, x_val, y_va
 def main():
     print("Loading pickle files...")
 
-    x_train, x_val, y_train, y_val = load_images()
+    x_train, x_val, y_train, y_val = load_pkl_files()
 
     print("Creating data generators...")
 
