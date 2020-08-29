@@ -5,7 +5,7 @@ Getting Started
 ---------------
 
 This repository implements a deep learning model to classify different radio signals from
-outer space. The different signals include "squiggle", "narrowband", "noise" and
+outer space. The different radio signals include "squiggle", "narrowband", "noise" and
 "narrowbanddrd".
 
 
@@ -22,8 +22,8 @@ Prerequisites
 Dataset
 -------
 
-Here, we use the SETI Dataset. The dataset is a csv file which encodes information  of
-images. 
+Here, we use the SETI Dataset. The dataset is a csv file which encodes information of
+images (spectrogram of audio signal). 
 
 How to train the model?
 -----------------------
