@@ -28,7 +28,16 @@ images (spectrogram of audio signal).
 How to train the model?
 -----------------------
 
+Go to the folder data and run the following commands to pre-process the data
+
+    python process_data.py
+    
+Go to the folder model and run the following command to train the model    
+
+    python train_classifier.py
 
 
 Summary
 -------
+
+The deep learning model attains a test accuracy of **74.37 %** on classification
