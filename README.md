@@ -40,4 +40,4 @@ Go to the folder model and run the following command to train the model
 Summary
 -------
 
-The deep learning model attains a test accuracy of **74.37 %** on classification
+The deep learning model attains a test accuracy of **74.37 %** on classification.
